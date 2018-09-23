@@ -33,5 +33,8 @@ protected:
 	void turnX(float x);
 	void turnY(float y);
 
+	void onPullTrigger();
+	void onReleaseTrigger();
+
 	virtual void Possess(APawn* InPawn) override;
 };

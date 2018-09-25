@@ -25,18 +25,20 @@ void AMPlayerController::SetupInputComponent()
 
 	InputComponent->BindAxis("MoveRight", this, &AMPlayerController::moveRight);
 	InputComponent->BindAxis("MoveForward", this, &AMPlayerController::moveForward);
+	InputComponent->BindAction("Fire", EInputEvent::IE_Pressed, this, &AMPlayerController::onPullTrigger);
+	InputComponent->BindAction("Fire", EInputEvent::IE_Released, this, &AMPlayerController::onReleaseTrigger);
 
 	// support touch devices 
 }
 
 void AMPlayerController::moveForward(float value)
 {
-	this->_input->moveX(value);
+	_input->moveX(value);
 }
 
 void AMPlayerController::moveRight(float value)
 {
-	this->_input->moveY(value);
+	_input->moveY(value);
 }
 
 void AMPlayerController::Possess(APawn* InPawn)
@@ -48,4 +50,14 @@ void AMPlayerController::Possess(APawn* InPawn)
 	{
 		character->setInput(_input);
 	}
+}
+
+void AMPlayerController::onPullTrigger()
+{
+	_input->setTrigger(true);
+}
+
+void AMPlayerController::onReleaseTrigger()
+{
+	_input->setTrigger(false);
 }

@@ -3,7 +3,8 @@
 #include "MWeapon.h"
 #include "MProjectile.h"
 #include "Components/ArrowComponent.h"
-
+#include "Components/SkeletalMeshComponent.h"
+#include "Public/TimerManager.h"
 
 // Sets default values
 AMWeapon::AMWeapon()
@@ -25,8 +26,6 @@ AMWeapon::AMWeapon()
 void AMWeapon::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	pullTrigger();
 }
 
 // Called every frame
@@ -69,7 +68,6 @@ void AMWeapon::fire()
 			FActorSpawnParameters spawnParams;
 			spawnParams.Owner = this;
 			spawnParams.Instigator = Instigator;
-
 
 			FTransform transform = _projectileStart->GetComponentTransform();
 			world->SpawnActor<AMProjectile>(_projectileType, transform.GetLocation(), transform.GetRotation().Rotator(), spawnParams);

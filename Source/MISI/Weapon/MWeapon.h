@@ -10,10 +10,14 @@ UCLASS()
 class MISI_API AMWeapon : public AActor
 {
 	GENERATED_BODY()
+
+	DECLARE_EVENT(AMWeapon, FireEvent);
 	
 public:	
 	// Sets default values for this actor's properties
 	AMWeapon();
+
+	//FireEvent& onFire() {return }
 
 protected:
 	// Called when the game starts or when spawned

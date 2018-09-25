@@ -26,6 +26,7 @@ void AMPlayer::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	move();
+	updateWeapon();
 }
 
 // Called to bind functionality to input
@@ -51,6 +52,21 @@ void AMPlayer::move()
 	AddMovementInput(FVector(0, 1, 0), _inputHandler->getMovement().Y);
 }
 
+void AMPlayer::updateWeapon()
+{
+	if (!_weapon)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("There is no any weapon set, that you can fire with!!!"));
+		return;
+	}
+
+	if (_triggerPulled != _inputHandler->triggerPulled())
+	{
+		_triggerPulled = !_triggerPulled;
+		_triggerPulled ? _weapon->pullTrigger() : _weapon->releaseTrigger();
+	}
+}
+
 void AMPlayer::setWeapon()
 {
 	if (_weaponPrototype)
@@ -70,4 +86,9 @@ void AMPlayer::setWeapon()
 			_weapon->getRoot()->AttachTo(GetMesh(), "weapon");
 		}
 	}
+}
+
+bool AMPlayer::isFiring()
+{
+	return _triggerPulled;
 }

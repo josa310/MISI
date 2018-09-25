@@ -2,6 +2,11 @@
 
 #include "MInputHandler.h"
 
+UMInputHandler::UMInputHandler(): _trigger(false)
+{
+
+}
+
 void UMInputHandler::sanitize()
 {
 	_sanitizedMovement = _rawMovement.ClampAxes(-1.0f, 1.0f);
@@ -18,6 +23,8 @@ void UMInputHandler::sanitize()
 	_rawMovement.Set(0.0f, 0.0f);
 	_rawRotation.Set(0.0f, 0.0f);
 }
+
+// GETTERS
 
 void UMInputHandler::moveY(float y)
 {
@@ -44,6 +51,13 @@ void UMInputHandler::turnY(float y)
 	_rawRotation.Y = y;
 }
 
+void UMInputHandler::setTrigger(bool pulled)
+{
+	_trigger = pulled;
+}
+
+
+// SETTERS
 FVector2D UMInputHandler::getRotation()
 {
 	return _sanitizedRotation;
@@ -65,4 +79,9 @@ float UMInputHandler::getRotationAngle()
 	float angle = FMath::RadiansToDegrees(rad);
 
 	return angle;
+}
+
+bool UMInputHandler::triggerPulled()
+{
+	return _trigger;
 }

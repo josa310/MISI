@@ -25,6 +25,9 @@ public:
 	UFUNCTION()
 	void setWeapon();
 
+	UFUNCTION(BlueprintPure)
+	bool isFiring();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -37,6 +40,10 @@ protected:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Weapon")
 	class AMWeapon* _weapon;
+
+	bool _triggerPulled;
+
+	void updateWeapon();
 
 	void move();
 };

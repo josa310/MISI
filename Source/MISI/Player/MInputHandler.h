@@ -20,16 +20,21 @@ protected:
 	FVector2D _rawRotation;
 	FVector2D _sanitizedRotation;
 
+	bool _trigger;
 	float _rawMovementSize;
 	float _rawRotationSize;
 
 public:
+	UMInputHandler();
+
 	void sanitize();
 	void moveX(float x);
 	void moveY(float y);
 
 	void turnX(float x);
 	void turnY(float y);
+
+	void setTrigger(bool pulled);
 
 	FVector2D getMovement();
 	FVector2D getRotation();
@@ -38,4 +43,6 @@ public:
 	bool isInRotationDeadZone(float deadZone);
 
 	float getRotationAngle();
+
+	bool triggerPulled();
 };
